@@ -8,10 +8,9 @@ public class Coordinate {
         this.Y=y;
     }
 
-    public Coordinate sum(int x, int y){
+    public void sum(int x, int y){
         this.X+=x;
         this.Y+=y;
-        return this;
     }
 
     public int[] toArray(){
