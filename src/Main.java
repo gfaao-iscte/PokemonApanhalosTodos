@@ -1,40 +1,49 @@
-import java.util.HashMap;
-import java.util.Scanner;
+import javax.print.attribute.HashAttributeSet;
+import java.util.*;
 
 public class Main {
 
-
-
+    private static Coordinate position = new Coordinate(0,0);
+    private static HashMap<Character,Coordinate> directionSum = new HashMap<>(){{
+        put('N', new Coordinate(0,1));
+        put('S', new Coordinate(0,-1));
+        put('E', new Coordinate(1,0));
+        put('O', new Coordinate(-1,0));
+    }};
+    private static HashSet<Coordinate> discovered = new HashSet<>();
     public static void main(String[] args){
+        while (true) {
+            discovered = new HashSet<>();
+            System.out.println("\nPokemon: Apanhá-los Todos");
+            System.out.println("Insere quantos Ns, Ss, Es, ou Os, para o Ash se deslocar: ");
 
-        int pokedex = 1;
+            String route = new Scanner(System.in).nextLine();
+            //route = pathGenerator(500000);
 
-        Coordinate position = new Coordinate(0,0);
-
-        HashMap<Character,Coordinate> directionMath = new HashMap<Character,Coordinate>();
-        directionMath.put('N', position.sum(0,1));
-        directionMath.put('S', position.sum(0,-1));
-        directionMath.put('E', position.sum(1,0));
-        directionMath.put('O', position.sum(-1,0));
-
-        HashMap<int[],Coordinate> discovered = new HashMap<int[], Coordinate>();
-        discovered.put(position.toArray(),position);
-
-        System.out.println("\nPokemon: Apanhá-los Todos\n");
-
-        System.out.println("Insere quantos Ns, Ss, Es, ou Os, para o Ash se deslocar\n");
-
-        String viagem = new Scanner(System.in).nextLine();
-
-        for (char direction: viagem.toCharArray()) {
-            directionMath.get(direction);
-            System.out.println(position.toArray()[0]+","+position.toArray()[1]);
-            if (!discovered.containsKey(position.toArray())){
-                pokedex+=1;
-                discovered.put(position.toArray(),position);
+            //System.out.println("\n"+position.toString());
+            discovered.add(position);
+            for (char direction : route.toCharArray()) {
+                //System.out.println(position.toString());
+                try {
+                    position = position.sum(directionSum.get(direction));
+                    discovered.add(position);
+                }catch (Exception e){
+                    //System.out.println("Caracter Inválido");
+                }
             }
+            System.out.println("\nO Ash Descobriu "+discovered.size()+" Pokemons.");
         }
-        System.out.println(pokedex);
-
+}
+    //Gera um caminho aleatório com tamanho igual a n
+    public static String pathGenerator(int n){
+        String[] nsoe = {"N","S","O","E"};
+        String path="";
+        for(int i=0;i<n;i++){
+            path=path.concat(nsoe[(int) (Math.random() * 3)]);
+        }
+        System.out.println(path);
+        return path;
     }
+
+
 }
