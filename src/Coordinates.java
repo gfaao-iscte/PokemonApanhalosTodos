@@ -1,14 +1,21 @@
-public class Coordinate {
+public class Coordinates {
 
+    //O Obejcto Coordinates tem 2 atributos
+    //X para a coordenada do Ash no eixo do X
+    //e Y para a coordenada do Ash no eixo do Y.
     private int X;
     private int Y;
 
-    public Coordinate(int x,int y){
+    //Para inicializar o objecto é preciso
+    //dar como argumentos as coordenadas para
+    //posição inicial do Ash.
+    public Coordinates(int x, int y){
         this.X=x;
         this.Y=y;
     }
 
-    public Coordinate sum(Coordinate direction){
+    //sum() permite somar as coordenadas de dois obejctos Coordenadas.
+    public Coordinates sum(Coordinates direction){
         this.X+=direction.X;
         this.Y+=direction.Y;
         return this;
@@ -16,10 +23,11 @@ public class Coordinate {
 
     @Override
     public String toString() {
-        return "Coordinate{" + "X=" + X + ", Y=" + Y + '}';
+        return "Coordinates{" + "X=" + X + ", Y=" + Y + '}';
     }
 
-    //Hashcode passa a ger gerado da seguinte forma
+    //hashcode() passa a gerar o hashcode de um objecto Coordenada
+    // da seguinte forma
     //Caso 1 - ambas as coordenadas positivas
     //Hashcode => 1xy
     //Caso 2 - ambas as variaveis negativas
@@ -46,14 +54,13 @@ public class Coordinate {
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         if(this == obj)
             return true;
         if(obj == null || obj.getClass()!= this.getClass())
             return false;
-        Coordinate coordinate = (Coordinate) obj;
-        return (coordinate.hashCode() == this.hashCode());
+        Coordinates coordinates = (Coordinates) obj;
+        return (coordinates.hashCode() == this.hashCode());
     }
 
 }
